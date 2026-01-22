@@ -13,25 +13,36 @@ int randomBetween(int low, int high)
 }
 
 int main()
-{
-    srand(time(0));
+{ 
+    srand(time(0)); 
+    int intersections = 4;
+    int NS_queue[intersections];
+    int EW_queue[intersections];
+    int NS_emergency[intersections];
+    int EW_emergency[intersections];
 
-    int NS_queue = randomBetween(6, 10);
-    int EW_queue = randomBetween(6, 10);
-
-    int chance_NS = randomBetween(1, 100);
-    int chance_EW = randomBetween(1, 100);
-
-    int NS_emergency = (chance_NS >= 80) ? 1 : 0;
-    int EW_emergency = (chance_EW >= 80) ? 1 : 0;
+    for (int i = 0; i < intersections; i++)
+    {
+        NS_queue[i] = randomBetween(6, 10);
+        EW_queue[i] = randomBetween(6, 10);
+        NS_emergency[i] = (randomBetween(1, 100) >= 80);
+        EW_emergency[i] = (randomBetween(1, 100) >= 80);
+    }
 
     while (true)
     {
+
         ofstream stateFile("state.csv");
-        stateFile << NS_queue << ","
-                  << EW_queue << ","
-                  << NS_emergency << ","
-                  << EW_emergency;
+        for (int i = 0; i < intersections; i++)
+        {
+            stateFile << NS_queue[i] << ","
+                      << EW_queue[i] << ","
+                      << NS_emergency[i] << ","
+                      << EW_emergency[i];
+
+            if (i != intersections - 1)
+                stateFile << "\n";
+        }
         stateFile.close();
 
         ifstream actionFile("action.txt");
@@ -41,28 +52,29 @@ int main()
 
         int cars_passed = 5;
 
-        if (action == "NS")
+        for (int i = 0; i < intersections; i++)
         {
-            int removed = min(cars_passed, NS_queue);
-            NS_queue -= removed;
+            if (action == "NS")
+            {
+                int removed = min(cars_passed, NS_queue[i]);
+                NS_queue[i] -= removed;
+            }
+            else if (action == "EW")
+            {
+                int removed = min(cars_passed, EW_queue[i]);
+                EW_queue[i] -= removed;
+            }
         }
-        else if (action == "EW")
+
+        for (int i = 0; i < intersections; i++)
         {
-            int removed = min(cars_passed, EW_queue);
-            EW_queue -= removed;
+            NS_queue[i] += randomBetween(1, 5);
+            EW_queue[i] += randomBetween(1, 5);
+
+            NS_emergency[i] = (randomBetween(1, 100) >= 80);
+            EW_emergency[i] = (randomBetween(1, 100) >= 80);
         }
 
-        int NS_new = randomBetween(1, 5);
-        int EW_new = randomBetween(1, 5);
-
-        NS_queue += NS_new;
-        EW_queue += EW_new;
-
-        chance_NS = randomBetween(1, 100);
-        chance_EW = randomBetween(1, 100);
-
-        NS_emergency = (chance_NS >= 80) ? 1 : 0;
-        EW_emergency = (chance_EW >= 80) ? 1 : 0;
     }
 
     return 0;

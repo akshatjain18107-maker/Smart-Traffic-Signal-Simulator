@@ -2,6 +2,10 @@
 
 Smart Traffic Light Control Using Q-Learning
 
+Project Presentation (PPT):
+
+Google Drive Link: https://drive.google.com/file/d/1uNUubGiseeJqDDOktI8F7hd3wSaMfqoH/view?usp=drivesdk
+
 1. Problem Statement
 Urban traffic congestion leads to excessive waiting times, fuel wastage, and delayed emergency response. Conventional traffic lights operate on fixed or alternating timers (e.g., 30 seconds per direction), which do not adapt to real-time traffic conditions. This results in inefficient signal usage, especially during uneven traffic flow or emergency situations. The goal of this project is to design an intelligent traffic signal control system that dynamically decides which direction should receive the green signal based on real-time traffic conditions.
 
@@ -21,10 +25,10 @@ The system consists of a C++ module that simulates the traffic environment and a
 
 7. Future Enhancements (To Be Updated)
 The following features are planned for future versions of the system:
-• • Multi-intersection traffic control
-• • Handling complex emergency scenarios (multiple emergency vehicles)
-• • Integration with real-time sensors or cameras
-Flowcharts and detailed diagrams will be added to visually represent system workflow and decision logic.
+
+• Multi-intersection traffic control
+• Handling complex emergency scenarios (multiple emergency vehicles)
+• Integration with real-time sensors or cameras
 
 8. Conclusion
 This project demonstrates how reinforcement learning can be applied to intelligent traffic signal control. By replacing fixed-time signals with a learning-based system, traffic efficiency is improved, average waiting time is reduced, and emergency response is prioritized.
